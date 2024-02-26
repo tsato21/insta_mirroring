@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Controllers\admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+
+use Illuminate\Http\Request;
+
+class UsersController extends Controller
+{
+    private $user;
+
+    public function __construct(User $user){
+        $this->user = $user;
+    }
+
+    public function index(){
+        $allUsers = $this->user->withTrashed()->latest()->paginate(10);
+        return view('admin.users.show')->with('allUsers', $allUsers);
+    }
+
+    public function deactivate($id){
+        $user = $this->user->findOrFail($id);
+        $user->delete();
+
+        return redirect()->back();
+    }
+
+    public function activate($id){
+        $user = $this->user->onlyTrashed()->findOrFail($id)->restore();
+        return redirect()->back();
+    }
+}
