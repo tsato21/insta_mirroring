@@ -21,14 +21,14 @@ class ProfileController extends Controller
             ->with('user', $user);
     }
 
-    public function update(Request $request){
+    public function update(Request $request, $id){
         $request->validate([
             'name'=>'required|min:1|max:50',
             'email'=>'required|email|max:50|unique:users,email,'. auth()->user()->id,
             'avatar'=>'mimes:jpg,jpeg,png,gif|max:1048',
         ]);
 
-        $user = $this->user->find(auth()->user()->id);
+        $user = $this->user->findOrFai($id);
         $user->name = $request->name;
         $user->email = $request->email;
 
@@ -56,6 +56,13 @@ class ProfileController extends Controller
         if(Storage::disk('local')->exists($filePath)){
             Storage::disk('local')->delete($filePath);
         }
+    }
+
+    public function deleteUser($id){
+        $user = $this->user->findOrFail($id);
+        $user->delete();
+
+        return redirect()->back();
     }
 
     public function following($id)

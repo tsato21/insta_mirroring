@@ -1,5 +1,6 @@
 .img-sm{
-    width:70px;
+    width: 50px;
+    height: 50px; 
 }
 
 .icon-sm{
@@ -8,6 +9,7 @@
 
 .img-profile{
     width:100px;
+    height: 100px;
 }
 
 .icon-profile{
@@ -16,8 +18,14 @@
 
 .img-nav{
     width:30px;
+    height: 30px;
 }
 
 .icon-nav{
     font-size:20px;
+}
+
+.text-color:hover{
+    background-color: rgb(180, 180, 232);
+    color: white;
 }

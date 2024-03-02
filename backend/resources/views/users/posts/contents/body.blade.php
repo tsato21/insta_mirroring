@@ -14,9 +14,11 @@
     <div class="mb-2">
         @if($post->categoryPost->count()>0)
             @foreach ($post->categoryPost as $categoryPost)
-                <div class="badge bg-secondary bg-opacity-50">
-                    {{$categoryPost->category->name}}
-                </div>
+                @if(!$categoryPost->category->trashed())
+                    <span class="badge bg-secondary bg-opacity-50">
+                        {{$categoryPost->category->name}}
+                    </span>
+                @endif
             @endforeach
         @else
             <div class="text-muted">No category</div>

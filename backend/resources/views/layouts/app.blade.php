@@ -120,6 +120,12 @@
                                     <a href="{{route('admin.users.index')}}" class="list-group-item {{request()->is('admin/users') ?"active": ""}}">
                                         <i class="fa-regular fa-user"></i> Users
                                     </a>
+                                    <a href="{{route('admin.posts.index')}}" class="list-group-item {{request()->is('admin/posts') ? "active":""}}">
+                                        <i class="fa-solid fa-signs-post"></i> Posts
+                                    </a>
+                                    <a href="{{route('admin.categories.index')}}" class="list-group-item {{request()->is('admin/categories') ? "active": ""}} ">
+                                        <i class="fa-solid fa-list"></i> Category
+                                    </a>
                                 </div>
                             </div>
                         @endif

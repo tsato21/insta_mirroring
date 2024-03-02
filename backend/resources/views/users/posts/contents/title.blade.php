@@ -52,7 +52,7 @@
                             <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure to delete this post?')">delete</button>
                         </form>
                     </div>
-                    @include('users.posts.contents.modals.update')
+                    @include('users.posts.contents.modals.edit')
                 </div>
             @endif
         </div>

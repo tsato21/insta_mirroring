@@ -45,6 +45,7 @@
                 @if(Auth::user()->id === $user->id)
                 <div>
                     <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProfile{{$user->id}}">Edit Profile</button>
+                    <button class="btn btn-sm btn-outline-danger ms-5" data-bs-toggle="modal" data-bs-target="#deleteUser{{$user->id}}">Delete Account</button>
                 </div>
                 @elseif($user->isFollowed())
                     <form action="{{route('unfollow',$user->id)}}" method="post">
@@ -56,7 +57,8 @@
                     <a href="{{route('follow', $user->id)}}" class="btn btn-outline-secondary btn-sm">Follow</a>
                 @endif
             </div>                     
-            @include('users.profile.modal.edit')
+            @include('users.profile.modals.edit')
+            @include('users.profile.modals.delete')
         </div>
     </div>
 </div>

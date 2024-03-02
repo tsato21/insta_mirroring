@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-3">
                         @if(Auth::user()->id === $post->user->id)
-                            @include('users.posts.contents.update-delete-button')
+                            @include('users.posts.contents.edit-delete-button')
                         @endif
                     </div>
                 </div>

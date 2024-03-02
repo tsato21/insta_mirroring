@@ -19,4 +19,4 @@
         </li>
     </ul>
 </div>
-@include('users.posts.contents.modals.update')
+@include('users.posts.contents.modals.edit')

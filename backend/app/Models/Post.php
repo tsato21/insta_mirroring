@@ -16,7 +16,7 @@ class Post extends Model
     
     use HasFactory;
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
     public function comments(){
         return $this->hasMany(Comment::class);
@@ -33,4 +33,7 @@ class Post extends Model
         return $this->likes()->where('user_id', auth()->user()->id)->exists();
     }
 
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'category_post', 'category_id', 'post_id')->withTrashed();
+    }
 }

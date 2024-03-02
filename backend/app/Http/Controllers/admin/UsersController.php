@@ -16,7 +16,7 @@ class UsersController extends Controller
     }
 
     public function index(){
-        $allUsers = $this->user->withTrashed()->latest()->paginate(10);
+        $allUsers = $this->user->withTrashed()->paginate(5);
         return view('admin.users.show')->with('allUsers', $allUsers);
     }
 
@@ -28,7 +28,14 @@ class UsersController extends Controller
     }
 
     public function activate($id){
-        $user = $this->user->onlyTrashed()->findOrFail($id)->restore();
+        $this->user->onlyTrashed()->findOrFail($id)->restore();
+        return redirect()->back();
+    }
+
+    public function forceDelete($id){
+        $user = $this->user->findOrFail($id);
+        $user->forceDelete();
+
         return redirect()->back();
     }
 }

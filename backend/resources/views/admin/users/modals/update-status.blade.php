@@ -6,7 +6,7 @@
                 <h2 class="text-danger m-2">Are you sure to deactivate {{$user->name}}?</h2>
             </div>
             <div class="modal-footer">
-                <form action="{{route('admin.deactivate', $user->id)}}" method="post">
+                <form action="{{route('admin.users.deactivate', $user->id)}}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Cancel</button>
@@ -25,7 +25,7 @@
                 <h2 class="text-success">Are you sure to activate {{$user->name}}?</h2>
             </div>
             <div class="modal-footer">
-                <form action="{{route('admin.activate', $user->id)}}" method="get">
+                <form action="{{route('admin.users.activate', $user->id)}}" method="get">
                     @csrf
                     <button class="btn btn-outline-success btn-sm" data-bs-dismiss="modal">Close</button>
                     <button class="btn btn-success btn-sm">Activate</button>

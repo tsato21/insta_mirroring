@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\CategoriesController;
+use App\Http\Controllers\admin\PostsController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Create like
     Route::get('/like/{id}', [LikeController::class, 'store'])->name('like.create');
+    //Delete like
     Route::delete('/like/{id}', [LikeController::class, 'destroy'])->name('like.delete');
 
     //Show Following
@@ -64,16 +67,41 @@ Route::group(['middleware' => 'auth'], function () {
     // Show profile page
     Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
     //Update profile
-    Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/delete/{id}', [ProfileController::class, 'deleteUser'])->name('profile.delete');
     
+    //Admin
     Route::group(['prefix'=>'admin', 'as'=>('admin.'), 'middleware'=>'admin'], function(){
         Route::get('/index', [HomeController::class, 'indexFollowing'])->name('home');
 
         //Show all users
         Route::get('/users', [UsersController::class, 'index'])->name('users.index');
-        //Deactivate a user
-        Route::delete('/users/deactivate/{id}', [UsersController::class, 'deactivate'])->name('deactivate');
-        Route::get('users/activate/{id}', [UsersController::class, 'activate'])->name('activate');
+        //Deactivate(Soft-delete) a user
+        Route::delete('/users/deactivate/{id}', [UsersController::class, 'deactivate'])->name('users.deactivate');
+        //Activate(Restore) a user
+        Route::get('users/activate/{id}', [UsersController::class, 'activate'])->name('users.activate');
+        //Force-delete a user
+        Route::delete('users/force/delete/{id}', [UsersController::class, 'forceDelete'])->name('users.force.delete');
+
+        //Show all posts
+        Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
+        //Unhide(Restore) a post
+        Route::get('posts/unhide/{id}', [PostsController::class, 'unhide'])->name('posts.unhide');
+        //Hide(Soft-delete) a post
+        Route::delete('posts/hide/{id}', [PostsController::class, 'hide'])->name('posts.hide');
+        //Force-delete a post
+        Route::delete('/posts/force/delete/{id}', [PostsController::class, 'forceDelete'])->name('posts.force.delete');
+
+        //Show all categories
+        Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
+        //Hide(Soft-delete) a category
+        Route::delete('/categories/hide/{id}', [CategoriesController::class, 'hide'])->name('categories.hide');
+        //Unhide(Restore) a category
+        Route::get('/categories/unhide/{id}',[CategoriesController::class,'unhide'])->name('categories.unhide');
+        //Update a category
+        Route::patch('/categories/update/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+        //Force-delete a category
+        Route::delete('/categories/force/delete/{id}', [CategoriesController::class, 'forceDelete'])->name('categories.force.delete');
     });
 
 });

@@ -10,22 +10,20 @@
                 @method('PATCH')
                 <div class="modal-body">
                     <div class="mb-3">
-                        @if($allCategories->count() > 0)
                             <label class="form-label">Category</label>
                             @foreach($allCategories as $category)
-                                <div class="form-check form-check-inline">
-                                    @php
-                                        $isChecked = $post->categoryPost->contains('category_id', $category->id);
-                                    @endphp
-                                    <input class="form-check-input" type="checkbox" name="category[]" id="category{{$category->id}}" value="{{$category->id}}" {{$isChecked ? 'checked' : ''}}>
-                                    <label class="form-check-label" for="category{{$category->id}}">
-                                        {{$category->name}}
-                                    </label>
-                                </div>
+                                @if(!$category->trashed())
+                                    <div class="form-check form-check-inline">
+                                        @php
+                                            $isChecked = $post->categoryPost->contains('category_id', $category->id);
+                                        @endphp
+                                            <input class="form-check-input" type="checkbox" name="category[]" id="category{{$category->id}}" value="{{$category->id}}" {{$isChecked ? 'checked' : ''}}>
+                                            <label class="form-check-label" for="category{{$category->id}}">
+                                                {{$category->name}}
+                                            </label>
+                                    </div>
+                                @endif
                             @endforeach
-                        @else
-                            No categories created yet.
-                        @endif                    
                     </div>
                     <div class="row m-3">
                         <div class="col-3 pe-0">
